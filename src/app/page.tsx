@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Facebook, Instagram, Twitter } from "lucide-react"
@@ -89,30 +89,34 @@ const products = [
   },
 ]
 
+const timelineImages = [
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/roadmap%20final-vb6AEeW44SDbCHvX2VoZptsAOipyvl.png",
+    alt: "Mountain landscape",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Property%201=1-BWT4X3hAVYTKNRlvrwdl35Mqvl6Zqq.png",
+    alt: "Timeline progression first stage",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Property%201=Variant7-LMNFDwhFsmmRBUBOA6NOocYYlv4RSi.png",
+    alt: "Timeline showing Week 1 Relief & Clarity and Week 4 Increased Resilience",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Property%201=Variant8-jqafXf3YsZxpTfVzXjACPSLYm2GlgT.png",
+    alt: "Timeline progression second stage",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Property%201=Variant9-57emMda8dRo7zipN3mFbZN98b5DT70.png",
+    alt: "Timeline third stage showing 3 months and beyond",
+  },
+  {
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Property%201=Variant6-y3T0UrkU3EELTTm5NP5RiPfuSRlXmq.png",
+    alt: "Timeline final stage",
+  },
+]
+
 export default function Home() {
-  const containerRef = useRef(null)
-  const [slidePosition, setSlidePosition] = useState(0)
-  const [isHovering, setIsHovering] = useState(false)
-
-  useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
-
-    const handleWheel = (e) => {
-      if (isHovering) {
-        e.preventDefault()
-        const newPosition = slidePosition + e.deltaY
-        setSlidePosition(Math.max(0, Math.min(newPosition, container.offsetWidth * 4)))
-      }
-    }
-
-    container.addEventListener("wheel", handleWheel, { passive: false })
-    return () => container.removeEventListener("wheel", handleWheel)
-  }, [isHovering, slidePosition])
-
-  const handleMouseEnter = () => setIsHovering(true)
-  const handleMouseLeave = () => setIsHovering(false)
-
   return (
     <div className="bg-[#ffffff]">
       {/* Hero Section */}
@@ -150,7 +154,7 @@ export default function Home() {
           </div>
 
           {/* Overlapping Middle Bottle */}
-          <div className="absolute left-1/2 bottom-0 -translate-x-1/2 w-[300px] h-[600px]">
+          <div className="absolute left-1/2 bottom-0 -translate-x-1/2 w-[300px] h-[600px] hidden md:block">
             <Image
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bottles-zG3aB6cZ2jiMSRURzaAXGsdZbngHp4.png"
               alt="Grey BOTOL water bottle product shot"
@@ -200,86 +204,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Inspiration Section with Timeline */}
-      <section
-        ref={containerRef}
-        className="relative h-[60vh] overflow-hidden bg-[#ffffff]"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        <div className="h-full">
-          <div className="relative h-full">
-            {/* First Image (Mountain) */}
-            <div
-              className="absolute inset-0 transition-all duration-300 ease-in-out"
-              style={{
-                transform: `translateX(-${slidePosition}px)`,
-              }}
-            >
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/roadmap%20final-vb6AEeW44SDbCHvX2VoZptsAOipyvl.png"
-                alt="Mountain landscape"
-                fill
-                className="object-cover"
-              />
-            </div>
-            {/* Second Image (Timeline First Stage) */}
-            <div
-              className="absolute inset-0 transition-all duration-300 ease-in-out"
-              style={{
-                transform: `translateX(${containerRef.current?.offsetWidth - slidePosition}px)`,
-              }}
-            >
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Property%201=1-BWT4X3hAVYTKNRlvrwdl35Mqvl6Zqq.png"
-                alt="Timeline progression first stage"
-                fill
-                className="object-cover"
-              />
-            </div>
-            {/* Third Image (Timeline Second Stage) */}
-            <div
-              className="absolute inset-0 transition-all duration-300 ease-in-out"
-              style={{
-                transform: `translateX(${containerRef.current?.offsetWidth * 2 - slidePosition}px)`,
-              }}
-            >
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Property%201=Variant8-jqafXf3YsZxpTfVzXjACPSLYm2GlgT.png"
-                alt="Timeline progression second stage"
-                fill
-                className="object-cover"
-              />
-            </div>
-            {/* Fourth Image (Timeline Third Stage) */}
-            <div
-              className="absolute inset-0 transition-all duration-300 ease-in-out"
-              style={{
-                transform: `translateX(${containerRef.current?.offsetWidth * 3 - slidePosition}px)`,
-              }}
-            >
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Property%201=Variant9-57emMda8dRo7zipN3mFbZN98b5DT70.png"
-                alt="Timeline third stage showing 3 months and beyond"
-                fill
-                className="object-cover"
-              />
-            </div>
-            {/* Fifth Image (Timeline Final Stage) */}
-            <div
-              className="absolute inset-0 transition-all duration-300 ease-in-out"
-              style={{
-                transform: `translateX(${containerRef.current?.offsetWidth * 4 - slidePosition}px)`,
-              }}
-            >
-              <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Property%201=Variant6-y3T0UrkU3EELTTm5NP5RiPfuSRlXmq.png"
-                alt="Timeline final stage"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
+      {/* Inspiration Section with Timeline (Full Width) */}
+      <section className="relative bg-[#ffffff] overflow-hidden">
+        <div className="w-full">
+          <TimelineAnimation images={timelineImages} />
         </div>
       </section>
 
@@ -357,6 +285,30 @@ export default function Home() {
           </div>
         </div>
       </footer>
+    </div>
+  )
+}
+
+function TimelineAnimation({ images }) {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length)
+    }, 2000) // Change image every 2 seconds
+
+    return () => clearInterval(interval)
+  }, [images.length])
+
+  return (
+    <div className="relative w-full">
+      <Image
+        src={images[currentIndex].src || "/placeholder.svg"}
+        alt={images[currentIndex].alt}
+        width={1920}
+        height={1080}
+        className="w-full h-auto"
+      />
     </div>
   )
 }
